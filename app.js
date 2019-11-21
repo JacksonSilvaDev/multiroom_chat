@@ -25,5 +25,19 @@ io.on('connection', socket => {
             apelido: data.apelido,
             mensagem: data.mensagem
         })
+
+        if (parseInt(data.apelido_atualizado) == 0) {
+            socket.emit('participantes', {
+                apelido: data.apelido
+
+            })
+
+            socket.broadcast.emit('participantes', {
+                apelido: data.apelido
+
+            })
+        }
+
+
     })
 });

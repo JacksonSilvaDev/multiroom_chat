@@ -111,16 +111,17 @@
 	<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 		<div class="container">
 			<div class="panel-body campo-mensagem">
-				<form>
-					<div class="col-md-12">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Mensagem">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button">></button>
-							</span>
-						</div>
+
+				<div class="col-md-12">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
+						<input type="hidden" value="<%= dadosForm.apelido %>" id="apelido">
+						<span class="input-group-btn">
+							<button class="btn btn-default" id="enviar_mensagem" type="button">></button>
+						</span>
 					</div>
-				</form>
+				</div>
+
 			</div>
 		</div>
 	</nav>
@@ -132,6 +133,16 @@
 
 	<script>
 		var socket = io('http://localhost');
+
+		$('#enviar_mensagem').click(() => {
+			var msg = $('#mensagem').val()
+			var apelido = $('#apelido').val()
+			socket.emit('novaMensagem', {
+				apelido: apelido,
+				mensagem: msg
+			})
+			$('#mensagem').val('')
+		})
 
 		socket.on('msgParaCliente', (data) => {
 			var html = '';

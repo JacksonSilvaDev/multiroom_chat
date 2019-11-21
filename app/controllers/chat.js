@@ -18,5 +18,7 @@ module.exports.iniciaChat = (application, req, res) => {
         mensagem: `Usuário ${dadosForm.apelido} se conectou`
     })
 
-    res.render('chat')
+    res.render('chat', {
+        dadosForm
+    })
 }
